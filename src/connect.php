@@ -15,3 +15,4 @@
         //recupération message erreur
         echo "Echec de la connexion: " . $error->getMessage() . "<br>";
     }
+?>

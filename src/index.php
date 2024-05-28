@@ -1,17 +1,24 @@
 <?php
+    //on démare la session, la session sert à envoyer des message d'une page à l'autre
+    session_start();
+
+    //connexion à la base de données (information de la connexion dans "connect.php")
     require_once("connect.php");
 
-    $sql = "SELECT * FROM `tableau_stage`";
+    //on selectionne le tableau dans la base de données
+    $sql = "SELECT * FROM `stage`";
 
+    //On prépare la requette
     $query = $db->prepare($sql);
 
+    //On execute la requette
     $query->execute();
-
+    
+    //On stock le résultat dans un tableau associatif
     $result = $query->fetchAll(PDO::FETCH_ASSOC);
 
-    
-    // var_dump($result);
     // afficher le resultat de $result
+    // var_dump($result);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +29,28 @@
     <link rel="stylesheet" href="./css/style.css" />
 </head>
 <body>
-    <h1>Tableau crud stage</h1>
+    <?php
+        if(!empty($_SESSION["erreur"])) {
+
+            //Demande pour afficher le message d'erreur trouver dans "details.php" si aucune page existe pour afficher l'id
+            echo "<h2>" . ($_SESSION["erreur"]) . "</h2>"; 
+
+            //Réinitialise le message d'erreur après l'avoir affiché
+            $_SESSION["erreur"] = ""; 
+        }
+    ?>
+    <?php
+        if(!empty($_SESSION["message"])) {
+
+            //Demande pour afficher le message  trouver dans "add.php" pour ajouter un stage
+            echo "<h2>" . ($_SESSION["message"]) . "</h2>"; 
+
+            //Réinitialise le message après l'avoir affiché
+            $_SESSION["message"] = ""; 
+        }
+    ?>
+
+    <h1>Accueil tableau crud sur la recherche de stage</h1>
     <table>
         <thead>
             <tr>
@@ -30,14 +58,10 @@
                 <th>Entreprise</th>
                 <th>Statut</th>
                 <th>Date</th>
-                <th>Date de relance</th>
-                <th>Type de postulation</th>
                 <th>Website</th>
-                <th>Intitulé du poste</th>
-                <th>Type de contract</th>
                 <th>Mail</th>
-                <th>Commentaires</th>
-                <th>Modifier</th>
+                <th>Commentaire</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -50,22 +74,21 @@
                     <td><?= $stage["id"] ?></td>
                     <td><?= $stage["entreprise"] ?></td>
                     <td><?= $stage["statut"] ?></td>
-                    <td><?= $stage["date"] ?></td>
-                    <td><?= $stage["date_de_relance"] ?></td>
-                    <td><?= $stage["type_de_postulation"] ?></td>
+                    <td><?= $stage["dates"] ?></td>
                     <td><?= $stage["website"] ?></td>
-                    <td><?= $stage["intitulé_du_poste"] ?></td>
-                    <td><?= $stage["type_de_contract"] ?></td>
                     <td><?= $stage["mail"] ?></td>
                     <td><?= $stage["commentaires"] ?></td>
-                    <td><a href="details.php"></a>Voir</td>
-                    <td><a href="modifier.php"></a>Modifier</td>
+                    <td><a href="details.php?id=<?=$stage["id"]?>">Voir</a></td>
+                    <td><a href="update.php?id=<?=$stage["id"]?>">Modifier</a></td>
+
+                    
+                    <td><a href="index.php?id=<?=$stage["id"]?>">Supprimer</a></td>
                 </tr>
             <?php
             }
             ?>
         </tbody>
     </table>
-    <a href="add.php">Ajouter un stage</a>
+    <a href="add.php"><button>Ajouter un stage</button></a>
 </body>
 </html>
