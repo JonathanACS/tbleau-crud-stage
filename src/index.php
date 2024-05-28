@@ -82,7 +82,7 @@
                     <td><a href="update.php?id=<?=$stage["id"]?>">Modifier</a></td>
 
                     
-                    <td><a href="index.php?id=<?=$stage["id"]?>">Supprimer</a></td>
+                    <td><a href="delete.php?id=<?=$stage["id"]?>">Supprimer</a></td>
                 </tr>
             <?php
             }
