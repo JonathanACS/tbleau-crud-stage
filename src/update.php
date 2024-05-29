@@ -115,15 +115,18 @@
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modifier le tableau de stage</title>
     <link rel="stylesheet" href="./css/style.css" />
+
 </head>
+
 <body>
 
-    <h1>Modifier une information du tableau de stage</h1>
+    <h1 class="title-center">Modifier une information du tableau de stage</h1>
     <form method="post">
         <div class="form">
             <label for="entreprise">Entreprise</label>
@@ -149,11 +152,12 @@
             <label for="commentaires">Commentaire</label>
             <input type="text" id="commentaires" name="commentaires" value="<?=$result["commentaires"] ?>">
         </div>
-        
+
         <input type="hidden" name="id" value="<?=$result["id"]?>">
         <button type="submit">Envoyer</button>
     </form>
 
     <a href="index.php"><button>Accueil</button></a>
 </body>
+
 </html>

@@ -1,5 +1,4 @@
 <?php
-
     session_start();
 
     //Vérification si le formulaire est remplie
@@ -58,12 +57,14 @@
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ajouter une recherche de stage</title>
     <link rel="stylesheet" href="./css/style.css" />
 </head>
+
 <body>
     <?php
         //Demande pour afficher le message d'erreur trouver dans "details.php" si aucune page existe pour afficher l'id
@@ -74,15 +75,19 @@
             $_SESSION["erreur"] = ""; 
         }
     ?>
-    <h1>Ajouter une recherche de stage</h1>
+    <h1 class="title-center">Ajouter une recherche de stage</h1>
     <form method="post">
         <div class="form">
             <label for="entreprise">Entreprise</label>
             <input type="text" id="entreprise" name="entreprise">
         </div>
         <div class="form">
-            <label for="statut">Statut</label>
-            <input type="text" id="statut" name="statut">
+            <label for="statut">Staut</label>
+            <select name="statut" id="statut" value="">
+                <option value="accepter">Accepter</option>
+                <option value="en attente">En attente</option>
+                <option value="refuser">Refuser</option>
+            </select>
         </div>
         <div class="form">
             <label for="dates">Date</label>
@@ -105,4 +110,5 @@
 
     <a href="index.php"><button>Accueil</button></a>
 </body>
+
 </html>

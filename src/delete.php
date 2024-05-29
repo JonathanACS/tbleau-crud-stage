@@ -52,7 +52,7 @@
                 $query->execute();
 
                 //Message d'erreur à afficher
-                $_SESSION["message"] = "information supprimer";
+                $_SESSION["supprimer"] = "information supprimer";
 
                 //Rediréction vers la page index.php
                 header("Location: index.php");
