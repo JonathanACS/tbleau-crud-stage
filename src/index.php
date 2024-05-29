@@ -21,7 +21,7 @@
     // var_dump($result);
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
@@ -61,7 +61,14 @@
             $_SESSION["supprimer"] = ""; 
         }
     ?>
-    <h1 class="title-center">Accueil tableau crud sur la recherche de stage</h1>
+    <div class="connexion">
+        <h1 class="title-center">Accueil tableau crud sur la recherche de stage</h1>
+        <div class="connextion-btn">
+            <a href="connexion.php"><button>se connecter</button></a>
+            <a href="inscription.php"><button>Créer votre compte</button></a>
+        </div>
+    </div>
+
     <table>
         <thead>
             <td>Entreprise</td>
@@ -83,7 +90,7 @@
                 <td><?= $stage["statut"] ?></td>
                 <td><?= $stage["dates"] ?></td>
                 <td><?= $stage["website"] ?></td>
-                <td><?= $stage["mail"] ?></td>
+                <td><?= $stage["email"] ?></td>
                 <td><?= $stage["commentaires"] ?></td>
                 <td>
                     <a href="details.php?id=<?=$stage["id"]?>">Voir</a>
@@ -97,9 +104,6 @@
         </tbody>
     </table>
     <a href="add.php"><button>Ajouter un stage</button></a>
-    <h2>Crée votre compte!</h2>
-    <p>Vous n'avez pas encore de compte ? Créez le vôtre !</p>
-    <a href="account.php">Créer votre compte</a>
 </body>
 
 </html>

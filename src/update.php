@@ -10,7 +10,7 @@
         && isset($_POST["statut"]) && !empty($_POST["statut"])
         && isset($_POST["dates"]) && !empty($_POST["dates"])
         && isset($_POST["website"]) && !empty($_POST["website"])
-        && isset($_POST["mail"]) && !empty($_POST["mail"])
+        && isset($_POST["email"]) && !empty($_POST["email"])
         && isset($_POST["commentaires"]) && !empty($_POST["commentaires"])){
         
         //connexion à la base de données (information de la connexion dans "connect.php")
@@ -22,11 +22,11 @@
         $statut = strip_tags($_POST["statut"]);
         $dates = strip_tags($_POST["dates"]);
         $website = strip_tags($_POST["website"]);
-        $mail = strip_tags($_POST["mail"]);
+        $mail = strip_tags($_POST["email"]);
         $commentaires = strip_tags($_POST["commentaires"]);
 
         //Préparation de la requette pour mettre à jour les informations dans la base de données
-        $sql = "UPDATE `stage` SET `entreprise`=:entreprise, `statut`=:statut, `dates`=:dates, `website`=:website, `mail`=:mail, `commentaires`=:commentaires WHERE `id`=:id;";
+        $sql = "UPDATE `stage` SET `entreprise`=:entreprise, `statut`=:statut, `dates`=:dates, `website`=:website, `email`=:email, `commentaires`=:commentaires WHERE `id`=:id;";
 
         
         //préparation de la requette 
@@ -38,7 +38,7 @@
         $query->bindValue(':statut', $statut, PDO::PARAM_STR);
         $query->bindValue(':dates', $dates, PDO::PARAM_STR);
         $query->bindValue(':website', $website, PDO::PARAM_STR);
-        $query->bindValue(':mail', $mail, PDO::PARAM_STR);
+        $query->bindValue(':email', $email, PDO::PARAM_STR);
         $query->bindValue(':commentaires', $commentaires, PDO::PARAM_STR);
 
         //execution de la requette
@@ -114,7 +114,7 @@
     };
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
@@ -145,8 +145,8 @@
             <input type="text" id="website" name="website" value="<?=$result["website"] ?>">
         </div>
         <div class="form">
-            <label for="mail">E-mail</label>
-            <input type="text" id="mail" name="mail" value="<?=$result["mail"] ?>">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" value="<?=$result["email"] ?>">
         </div>
         <div class="form">
             <label for="commentaires">Commentaire</label>

@@ -9,17 +9,24 @@ h1,
 h2 {
   color: #4b4b4b;
 }
+
 h3,
 h5 {
   color: #d9534f;
   font-size: 26px;
 }
+
 h4 {
   color: #66cc66;
   font-size: 26px;
 }
+
 .title-center {
   text-align: center;
+}
+.connexion {
+  display: flex;
+  justify-content: center;
 }
 
 table {
@@ -61,17 +68,19 @@ a:hover {
 }
 
 button {
-  background-color: #77dd77;
+  background-color: #609dae;
   color: white;
   border: none;
   padding: 10px 20px;
   cursor: pointer;
   border-radius: 5px;
   margin-top: 10px;
+  margin-top: 20px;
+  transition: ease-in 0.2s;
 }
 
 button:hover {
-  background-color: #66cc66;
+  background-color: #35956a;
 }
 
 form {
@@ -93,8 +102,33 @@ label {
   color: #4b4b4b;
 }
 
+label[for="statut"] {
+  display: block;
+  margin-bottom: 5px;
+  color: #4b4b4b;
+}
+
+#statut {
+  width: 98%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #eef7fa;
+}
+
+#statut option {
+  padding: 10px;
+}
+
+#statut:focus {
+  border-color: #77dd77;
+  outline: none;
+}
+
 input[type="text"],
-input[type="date"] {
+input[type="date"],
+input[type="email"],
+input[type="password"] {
   width: 95%;
   padding: 10px;
   border: 1px solid #ccc;
@@ -103,7 +137,9 @@ input[type="date"] {
 }
 
 input[type="text"]:focus,
-input[type="date"]:focus {
+input[type="date"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
   border-color: #77dd77;
   outline: none;
 }

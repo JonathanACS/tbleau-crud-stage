@@ -18,7 +18,7 @@
         <p>STATUT : <?= $result["statut"] ?></p>
         <p>DATE : <?= $result["dates"] ?></p>
         <p>WEBSITE : <?= $result["website"] ?></p>
-        <p>E-MAIL : <?= $result["mail"] ?></p>
+        <p>E-MAIL : <?= $result["email"] ?></p>
         <p>COMMENTAIRES : <?= $result["commentaires"] ?></p>
         <a href="update.php?id=<?= $result["id"]?>"><button>Modifier</button></a>
         <a href="index.php"><button>Accueil</button></a>

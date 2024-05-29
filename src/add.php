@@ -7,7 +7,7 @@
         && isset($_POST["statut"]) && !empty($_POST["statut"])
         && isset($_POST["dates"]) && !empty($_POST["dates"])
         && isset($_POST["website"]) && !empty($_POST["website"])
-        && isset($_POST["mail"]) && !empty($_POST["mail"])
+        && isset($_POST["email"]) && !empty($_POST["email"])
         && isset($_POST["commentaires"]) && !empty($_POST["commentaires"])){
         
         //connexion à la base de données (information de la connexion dans "connect.php")
@@ -18,11 +18,11 @@
         $statut = strip_tags($_POST["statut"]);
         $dates = strip_tags($_POST["dates"]);
         $website = strip_tags($_POST["website"]);
-        $mail = strip_tags($_POST["mail"]);
+        $email = strip_tags($_POST["email"]);
         $commentaires = strip_tags($_POST["commentaires"]);
 
         //Préparation de la requette pour envoyer les informations dans la base de données
-        $sql = "INSERT INTO `stage`(`entreprise`, `statut`, `dates`, `website`, `mail`, `commentaires`) VALUE (:entreprise, :statut, :dates, :website, :mail, :commentaires);";
+        $sql = "INSERT INTO `stage`(`entreprise`, `statut`, `dates`, `website`, `email`, `commentaires`) VALUE (:entreprise, :statut, :dates, :website, :email, :commentaires);";
         
         //préparation de la requette 
         $query = $db->prepare($sql);
@@ -32,7 +32,7 @@
         $query->bindValue(':statut', $statut, PDO::PARAM_STR);
         $query->bindValue(':dates', $dates, PDO::PARAM_STR);
         $query->bindValue(':website', $website, PDO::PARAM_STR);
-        $query->bindValue(':mail', $mail, PDO::PARAM_STR);
+        $query->bindValue(':email', $email, PDO::PARAM_STR);
         $query->bindValue(':commentaires', $commentaires, PDO::PARAM_STR);
 
         //execution de la requette
@@ -98,8 +98,8 @@
             <input type="text" id="website" name="website">
         </div>
         <div class="form">
-            <label for="mail">E-mail</label>
-            <input type="text" id="mail" name="mail">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email">
         </div>
         <div class="form">
             <label for="commentaires">Commentaire</label>
