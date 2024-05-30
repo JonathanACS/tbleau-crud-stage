@@ -7,7 +7,7 @@
     if(isset($_GET["id"]) && !empty($_GET["id"])){
 
         //Connexion à la base de données
-        require_once("connect.php");
+        require_once("./include/connect.php");
 
         //on nettoie l'id envoyer
         $id = strip_tags($_GET["id"]);
@@ -34,11 +34,28 @@
             $_SESSION["erreur"] = "l'id en question existe pas encore, reviens plus tard";
 
             //Rediréction vers la page index.php
-            header("Location: index.php");
+            header("Location: stage.php");
 
             // Assurez-vous qu'aucun autre code ne soit exécuté après la redirection
             exit();
         }
+                //Demande de la requette
+                $sql = "DELETE FROM `stage` WHERE `id` = :id;";
+
+                //Préparation de la requette
+                $query = $db->prepare($sql);
+
+                //accrocher les parametre 
+                $query->bindValue(':id', $id, PDO::PARAM_INT);
+
+                //execution de la requette
+                $query->execute();
+
+                //Message d'erreur à afficher
+                $_SESSION["supprimer"] = "information supprimer";
+
+                //Rediréction vers la page index.php
+                header("Location: stage.php");
 
     }else{
 
@@ -46,7 +63,7 @@
         $_SESSION["erreur"] = "La page en question n'existe pas encore, reviens plus tard";
 
         //Rediréction vers la page index.php
-        header("Location: index.php");
+        header("Location: stage.php");
 
         // Assurez-vous qu'aucun autre code ne soit exécuté après la redirection
         exit();

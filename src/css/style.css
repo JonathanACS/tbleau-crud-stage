@@ -20,6 +20,43 @@ h4 {
   color: #66cc66;
   font-size: 26px;
 }
+/* Style pour le menu de navigation */
+nav {
+  background-color: #aed9e0;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+nav ul li {
+  display: inline;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #0073e6;
+  padding: 10px 15px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+nav ul li a:hover {
+  background-color: #d3e8f0;
+}
+
+nav p {
+  margin: 0;
+  color: #4b4b4b;
+}
 
 .title-center {
   text-align: center;

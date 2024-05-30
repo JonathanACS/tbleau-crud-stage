@@ -1,5 +1,7 @@
 <?php
-    session_start();
+    //on démare la session, la session sert à envoyer des message d'une page à l'autre
+    // session_start();
+
 
     //Vérification si le formulaire est remplie
     if($_POST){
@@ -11,7 +13,7 @@
         && isset($_POST["commentaires"]) && !empty($_POST["commentaires"])){
         
         //connexion à la base de données (information de la connexion dans "connect.php")
-        require_once("connect.php");
+        require_once("./include/connect.php");
 
         //on nettoie les données avant de les envoyer
         $entreprise = strip_tags($_POST["entreprise"]);
@@ -42,10 +44,10 @@
         $_SESSION["message"] = "Stage ajouter";
 
         //déconnexion de la base de données (information de la déconnexion dans "disconnect.php")
-        require_once("disconnect.php");
+        require_once("./include/disconnect.php");
 
         //Rediréction vers la page index.php
-        header("Location: index.php");
+        header("Location: stage.php");
 
         // Assurez-vous qu'aucun autre code ne soit exécuté après la redirection
         exit();
@@ -66,6 +68,7 @@
 </head>
 
 <body>
+    <?php include_once("./include/nav.php");?>
     <?php
         //Demande pour afficher le message d'erreur trouver dans "details.php" si aucune page existe pour afficher l'id
         if(!empty($_SESSION["erreur"])) {
@@ -99,7 +102,7 @@
         </div>
         <div class="form">
             <label for="email">E-mail</label>
-            <input type="email" id="email" name="email">
+            <input type="text" id="email" name="email">
         </div>
         <div class="form">
             <label for="commentaires">Commentaire</label>

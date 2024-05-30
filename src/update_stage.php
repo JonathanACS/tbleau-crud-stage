@@ -14,7 +14,7 @@
         && isset($_POST["commentaires"]) && !empty($_POST["commentaires"])){
         
         //connexion à la base de données (information de la connexion dans "connect.php")
-        require_once("connect.php");
+        require_once("./include/connect.php");
 
         //on nettoie les données avant de les envoyer
         $id = strip_tags($_POST["id"]);
@@ -22,7 +22,7 @@
         $statut = strip_tags($_POST["statut"]);
         $dates = strip_tags($_POST["dates"]);
         $website = strip_tags($_POST["website"]);
-        $mail = strip_tags($_POST["email"]);
+        $email = strip_tags($_POST["email"]);
         $commentaires = strip_tags($_POST["commentaires"]);
 
         //Préparation de la requette pour mettre à jour les informations dans la base de données
@@ -48,10 +48,10 @@
         $_SESSION["message"] = "Information du stage modifier";
 
         //déconnexion de la base de données (information de la déconnexion dans "disconnect.php")
-        require_once("disconnect.php");
+        require_once("./include/disconnect.php");
 
         //Rediréction vers la page index.php
-        header("Location: index.php");
+        header("Location: stage.php");
 
         // Assurez-vous qu'aucun autre code ne soit exécuté après la redirection
         exit();
@@ -68,7 +68,7 @@
     if(isset($_GET["id"]) && !empty($_GET["id"])){
 
         //Connexion à la base de données
-        require_once("connect.php");
+        require_once("./include/connect.php");
 
         //on nettoie l'id envoyer
         $id = strip_tags($_GET["id"]);
@@ -95,7 +95,7 @@
             $_SESSION["erreur"] = "l'id en question existe pas encore, reviens plus tard";
 
             //Rediréction vers la page index.php
-            header("Location: index.php");
+            header("Location: stage.php");
 
             // Assurez-vous qu'aucun autre code ne soit exécuté après la redirection
             exit();
@@ -107,7 +107,7 @@
         $_SESSION["erreur"] = "La page en question n'existe pas encore, reviens plus tard";
 
         //Rediréction vers la page index.php
-        header("Location: index.php");
+        header("Location: stage.php");
 
         // Assurez-vous qu'aucun autre code ne soit exécuté après la redirection
         exit();
@@ -125,7 +125,7 @@
 </head>
 
 <body>
-
+    <?php include_once("./include/nav.php");?>
     <h1 class="title-center">Modifier une information du tableau de stage</h1>
     <form method="post">
         <div class="form">
@@ -157,7 +157,7 @@
         <button type="submit">Envoyer</button>
     </form>
 
-    <a href="index.php"><button>Accueil</button></a>
+    <a href="profil.php"><button>Accueil</button></a>
 </body>
 
 </html>
