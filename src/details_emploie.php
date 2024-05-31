@@ -1,7 +1,7 @@
 <?php
     session_start();
 
-    include_once("./include/verification_id.php");
+    include_once("./include/verification_id_emploie.php");
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -9,7 +9,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Détails sur les recherches de stage</title>
+    <title>Détails sur les recherches d'emploie</title>
     <link rel="stylesheet" href="./css/style.css" />
 </head>
 
@@ -19,10 +19,11 @@
     <div class="details">
         <p>STATUT : <?= $result["statut"] ?></p>
         <p>DATE : <?= $result["dates"] ?></p>
+        <p>DATE : <?= $result["relance"] ?></p>
         <p>WEBSITE : <?= $result["website"] ?></p>
         <p>E-MAIL : <?= $result["email"] ?></p>
-        <p>COMMENTAIRES : <?= $result["commentaires"] ?></p>
-        <a href="update_stage.php?id=<?= $result["id_stage"]?>"><button>Modifier</button></a>
+        <p>COMMENTAIRES : <?= $result["commentaire"] ?></p>
+        <a href="update_emploie.php?id=<?= $result["id_emploie"]?>"><button>Modifier</button></a>
         <a href="#" onclick="history.go(-1)"><button>Retour</button></a>
     </div>
 </body>

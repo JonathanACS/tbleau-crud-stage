@@ -5,7 +5,7 @@
 
     //Vérification si le formulaire est remplie
     if($_POST){
-        if (isset($_POST["id"]) && !empty($_POST["id"])
+        if (isset($_POST["id_stage"]) && !empty($_POST["id_stage"])
         && isset($_POST["entreprise"]) && !empty($_POST["entreprise"])
         && isset($_POST["statut"]) && !empty($_POST["statut"])
         && isset($_POST["dates"]) && !empty($_POST["dates"])
@@ -17,7 +17,7 @@
         require_once("./include/connect.php");
 
         //on nettoie les données avant de les envoyer
-        $id = strip_tags($_POST["id"]);
+        $id_stage = strip_tags($_POST["id_stage"]);
         $entreprise = strip_tags($_POST["entreprise"]);
         $statut = strip_tags($_POST["statut"]);
         $dates = strip_tags($_POST["dates"]);
@@ -26,14 +26,14 @@
         $commentaires = strip_tags($_POST["commentaires"]);
 
         //Préparation de la requette pour mettre à jour les informations dans la base de données
-        $sql = "UPDATE `stage` SET `entreprise`=:entreprise, `statut`=:statut, `dates`=:dates, `website`=:website, `email`=:email, `commentaires`=:commentaires WHERE `id`=:id;";
+        $sql = "UPDATE `stage` SET `entreprise`=:entreprise, `statut`=:statut, `dates`=:dates, `website`=:website, `email`=:email, `commentaires`=:commentaires WHERE `id_stage`=:id_stage;";
 
         
         //préparation de la requette 
         $query = $db->prepare($sql);
         
         //Attribution des valeur
-        $query->bindValue(':id', $id, PDO::PARAM_INT);
+        $query->bindValue(':id_stage', $id_stage, PDO::PARAM_INT);
         $query->bindValue(':entreprise', $entreprise, PDO::PARAM_STR);
         $query->bindValue(':statut', $statut, PDO::PARAM_STR);
         $query->bindValue(':dates', $dates, PDO::PARAM_STR);
@@ -64,54 +64,74 @@
 
 
 
-    //Vérification si l'id existe et si il n'est pas vide dans l'url
-    if(isset($_GET["id"]) && !empty($_GET["id"])){
+    //Vérification si l'utilisateur est connecté et son ID est dans la session
+    if(isset($_SESSION["user"]) && isset($_SESSION["user"]["id"])){
 
         //Connexion à la base de données
         require_once("./include/connect.php");
 
-        //on nettoie l'id envoyer
-        $id = strip_tags($_GET["id"]);
+        //On nettoie l'ID envoyé
+        $user_id = intval($_SESSION["user"]["id"]);
 
-        //Demande de la requette
-        $sql = "SELECT * FROM `stage` WHERE `id` = :id;";
+        //Vérification si l'ID de l'utilisateur existe et n'est pas vide dans l'URL
+        if(isset($_GET["id"]) && !empty($_GET["id"])){
 
-        //Préparation de la requette
-        $query = $db->prepare($sql);
+            //On nettoie l'ID envoyé
+            $id_stage = strip_tags($_GET["id"]);
 
-        //accrocher les parametre 
-        $query->bindValue(':id', $id, PDO::PARAM_INT);
+            //Demande de la requête avec une clause WHERE pour vérifier que l'utilisateur est le créateur du stage
+            $sql = "SELECT * FROM `stage` WHERE `id_stage` = :id_stage AND `id_users` = :user_id";
 
-        //execution de la requette
-        $query->execute();
+            //Préparation de la requête
+            $query = $db->prepare($sql);
 
-        //on récupère le resultat
-        $result = $query->fetch();
+            //Accrocher les paramètres
+            $query->bindValue(':id_stage', $id_stage, PDO::PARAM_INT);
+            $query->bindValue(':user_id', $user_id, PDO::PARAM_INT);
 
-        //on vérifie si l'id existe
-        if(!$result){
+            //Exécution de la requête
+            $query->execute();
+
+            //On récupère le résultat
+            $result = $query->fetch();
+
+            //On vérifie si l'ID existe
+            if(!$result){
+
+                //Message d'erreur à afficher
+                $_SESSION["erreur"] = "Vous êtes allé trop loin, aucun stage ne correspond!";
+
+
+                //Redirection vers la page index.php
+                header("Location: stage.php");
+
+                // Assurez-vous qu'aucun autre code ne soit exécuté après la redirection
+                exit();
+            }
+
+        }else{
 
             //Message d'erreur à afficher
-            $_SESSION["erreur"] = "l'id en question existe pas encore, reviens plus tard";
+            $_SESSION["erreur"] = "La page demandée n'existe pas, veuillez réessayer plus tard";
 
-            //Rediréction vers la page index.php
+
+
+            //Redirection vers la page index.php
             header("Location: stage.php");
 
             // Assurez-vous qu'aucun autre code ne soit exécuté après la redirection
             exit();
         }
+    } else {
+        //Message d'erreur à afficher si l'utilisateur n'est pas connecté
+        $_SESSION["erreur"] = "Vous devez être connecté pour accéder à cette page";
 
-    }else{
-
-        //Message d'erreur à afficher
-        $_SESSION["erreur"] = "La page en question n'existe pas encore, reviens plus tard";
-
-        //Rediréction vers la page index.php
-        header("Location: stage.php");
+        //Redirection vers la page de connexion
+        header("Location: connexion.php");
 
         // Assurez-vous qu'aucun autre code ne soit exécuté après la redirection
         exit();
-    };
+    }
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -153,11 +173,10 @@
             <input type="text" id="commentaires" name="commentaires" value="<?=$result["commentaires"] ?>">
         </div>
 
-        <input type="hidden" name="id" value="<?=$result["id"]?>">
+        <input type="hidden" name="id_stage" value="<?=$result["id_stage"]?>">
         <button type="submit">Envoyer</button>
     </form>
-
-    <a href="profil.php"><button>Accueil</button></a>
+    <a href="#" onclick="history.go(-1)"><button>Retour</button></a>
 </body>
 
 </html>

@@ -109,7 +109,8 @@ if(!empty($_POST)){
         </div>
         <button type="submit">Envoyer</button>
     </form>
-    <a href="index.php"><button>Retour</button></a>
+    <a href="#" onclick="history.go(-1)"><button>Retour</button></a>
+
 </body>
 
 </html>

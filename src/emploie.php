@@ -2,23 +2,36 @@
     //on démare la session, la session sert à envoyer des message d'une page à l'autre
     session_start();
 
-    //connexion à la base de données (information de la connexion dans "connect.php")
-    require_once("./include/connect.php");
+    // Vérifier si l'utilisateur est connecté
+    if(isset($_SESSION["user"]) && isset($_SESSION["user"]["id"])) {
+        // Récupérer l'ID de l'utilisateur connecté
+        $user_id = $_SESSION["user"]["id"];
 
-    //on selectionne le tableau dans la base de données
-    $sql = "SELECT * FROM `stage`";
+        //connexion à la base de données (information de la connexion dans "connect.php")
+        require_once("./include/connect.php");
 
-    //On prépare la requette
-    $query = $db->prepare($sql);
+        //on selectionne le tableau dans la base de données pour l'utilisateur connecté
+        $sql = "SELECT * FROM `emploie` WHERE `id_user` = :user_id";
 
-    //On execute la requette
-    $query->execute();
-    
-    //On stock le résultat dans un tableau associatif
-    $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        //On prépare la requette
+        $query = $db->prepare($sql);
 
-    // afficher le resultat de $result
-    // var_dump($result);
+        //On bind l'ID de l'utilisateur à la requête
+        $query->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+
+        //On execute la requette
+        $query->execute();
+        
+        //On stock le résultat dans un tableau associatif
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        // afficher le resultat de $result
+        // var_dump($result);
+    } else {
+        // Si l'utilisateur n'est pas connecté, rediriger vers la page de connexion
+        header("Location: login.php");
+        exit(); // Assurez-vous qu'aucun autre code ne soit exécuté après la redirection
+    }
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -63,8 +76,6 @@
         }
     ?>
     <h1 class="title-center">Accueil tableau crud sur la recherche d'emploie</h1>
-
-
     <table>
         <thead>
             <td>Entreprise</td>
@@ -78,20 +89,20 @@
         <tbody>
             <?php 
             // pour chaque information récupéré dans $result, on affiche une nouvelle ligne dans la table HTML
-                foreach($result as $stage){
+                foreach($result as $emploie){
             //chaque information récupéré sera identifier en tant que $stage dans le foreach
             ?>
             <tr>
-                <td><?= $stage["entreprise"] ?></td>
-                <td><?= $stage["statut"] ?></td>
-                <td><?= $stage["dates"] ?></td>
-                <td><?= $stage["website"] ?></td>
-                <td><?= $stage["email"] ?></td>
-                <td><?= $stage["commentaires"] ?></td>
+                <td><?= $emploie["entreprise"] ?></td>
+                <td><?= $emploie["statut"] ?></td>
+                <td><?= $emploie["dates"] ?></td>
+                <td><?= $emploie["website"] ?></td>
+                <td><?= $emploie["email"] ?></td>
+                <td><?= $emploie["commentaire"] ?></td>
                 <td>
-                    <a href="details_stage.php?id=<?=$stage["id"]?>">Voir</a>
-                    <a href="update_stage.php?id=<?=$stage["id"]?>">Modifier</a>
-                    <a href="delete_stage.php?id=<?=$stage["id"]?>">Supprimer</a>
+                    <a href="details_emploie.php?id=<?=$emploie["id_emploie"]?>">Voir</a>
+                    <a href="update_emploie.php?id=<?=$emploie["id_emploie"]?>">Modifier</a>
+                    <a href="delete_emploie.php?id=<?=$emploie["id_emploie"]?>">Supprimer</a>
                 </td>
             </tr>
             <?php
@@ -99,7 +110,9 @@
             ?>
         </tbody>
     </table>
-    <a href="add_stage.php"><button>Ajouter un stage</button></a>
+    <a href="add_emploie.php"><button>Ajouter une recherche d'emploie</button></a>
+    <a href="#" onclick="history.go(-1)"><button>Retour</button></a>
+
 </body>
 
 </html>

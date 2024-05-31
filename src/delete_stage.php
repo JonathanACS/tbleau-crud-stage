@@ -13,7 +13,7 @@
         $id = strip_tags($_GET["id"]);
 
         //Demande de la requette
-        $sql = "SELECT * FROM `stage` WHERE `id` = :id;";
+        $sql = "SELECT * FROM `stage` WHERE `id_stage` = :id;";
 
         //Préparation de la requette
         $query = $db->prepare($sql);
@@ -34,13 +34,14 @@
             $_SESSION["erreur"] = "l'id en question existe pas encore, reviens plus tard";
 
             //Rediréction vers la page index.php
-            header("Location: stage.php");
+            header("Location: index.php");
 
             // Assurez-vous qu'aucun autre code ne soit exécuté après la redirection
             exit();
         }
                 //Demande de la requette
-                $sql = "DELETE FROM `stage` WHERE `id` = :id;";
+                $sql = "DELETE FROM `stage` WHERE `id_stage` = :id;";
+
 
                 //Préparation de la requette
                 $query = $db->prepare($sql);
@@ -52,7 +53,7 @@
                 $query->execute();
 
                 //Message d'erreur à afficher
-                $_SESSION["supprimer"] = "information supprimer";
+                $_SESSION["supprimer"] = "information du stage supprimer";
 
                 //Rediréction vers la page index.php
                 header("Location: stage.php");
