@@ -75,7 +75,7 @@
             $_SESSION["supprimer"] = ""; 
         }
     ?>
-    <h1 class="title-center">Accueil tableau crud sur la recherche d'emploie</h1>
+    <h1 class="title-center">Accueil tableau crud sur la recherche d'emploi</h1>
     <table>
         <thead>
             <td>Entreprise</td>
@@ -110,7 +110,7 @@
             ?>
         </tbody>
     </table>
-    <a href="add_emploie.php"><button>Ajouter une recherche d'emploie</button></a>
+    <a href="add_emploie.php"><button>Ajouter une recherche d'emploi</button></a>
     <a href="#" onclick="history.go(-1)"><button>Retour</button></a>
 
 </body>

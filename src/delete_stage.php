@@ -34,7 +34,7 @@
             $_SESSION["erreur"] = "l'id en question existe pas encore, reviens plus tard";
 
             //Rediréction vers la page index.php
-            header("Location: index.php");
+            header("Location: stage.php");
 
             // Assurez-vous qu'aucun autre code ne soit exécuté après la redirection
             exit();

@@ -1,5 +1,5 @@
 <?php
-    //on démare la session, la session sert à envoyer des message d'une page à l'autre
+    //on démare la session, la session sert à envoyer des message/garder les informations d'une page à l'autre
     session_start();
 
 
@@ -57,7 +57,6 @@
 
                 //Rediréction vers la page index.php
             header("Location: emploie.php");
-
 
     }else{
 

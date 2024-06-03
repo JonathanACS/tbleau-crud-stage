@@ -21,12 +21,12 @@
 
 <body>
     <?php include_once("./include/nav.php");?>
-    <h1>Profil de <?= $_SESSION["user"]["pseudo"]?></h1>
+    <h1>Profil de <span class="prenom"><?= $_SESSION["user"]["pseudo"]?></span></h1>
 
     <p>Pseudo : <?= $_SESSION["user"]["pseudo"]?></p>
     <p>Email : <?= $_SESSION["user"]["email"]?></p>
     <a href="stage.php"><button>stage</button></a>
-    <a href="emploie.php"><button>emploie</button></a>
+    <a href="emploie.php"><button>emploi</button></a>
     <a href="delete_users.php"><button>Supprimer mon compte</button></a>
 
 </body>

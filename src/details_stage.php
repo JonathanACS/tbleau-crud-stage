@@ -15,7 +15,7 @@
 
 <body>
     <?php include_once("./include/nav.php");?>
-    <h1 class="title-center">Entreprise <?= $result["entreprise"] ?></h1>
+    <h1 class="title-center">Entreprise <span class="entreprise"><?= $result["entreprise"] ?></span></h1>
     <div class="details">
         <p>STATUT : <?= $result["statut"] ?></p>
         <p>DATE : <?= $result["dates"] ?></p>

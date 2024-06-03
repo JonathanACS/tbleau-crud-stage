@@ -103,9 +103,9 @@ if ($_POST) {
         <div class="form">
             <label for="statut">Statut</label>
             <select name="statut" id="statut">
-                <option value="accepter">Accepter</option>
-                <option value="en attente">En attente</option>
-                <option value="refuser">Refuser</option>
+                <option value="Accepter">Accepter</option>
+                <option value="En attente">En attente</option>
+                <option value="Refuser">Refuser</option>
             </select>
         </div>
         <div class="form">
