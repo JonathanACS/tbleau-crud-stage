@@ -51,7 +51,8 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-  background-color: #d3e8f0;
+  /* background-color: #d3e8f0; */
+  background-color: #de8375;
 }
 
 nav p {
@@ -121,7 +122,8 @@ button {
 }
 
 button:hover {
-  background-color: #35956a;
+  /* background-color: #35956a; */
+  background-color: #de8375;
 }
 
 form {
@@ -190,7 +192,8 @@ a button {
   transition: ease-in 0.2s;
 }
 a button:hover {
-  background-color: #35956a;
+  /* background-color: #35956a; */
+  background-color: #de8375;
 }
 .details {
   background-color: #ffffff;
@@ -205,12 +208,10 @@ a button:hover {
   color: #4b4b4b;
   margin: 10px 0;
 }
-.entreprise {
-  color: #4b7c8a;
-  text-transform: uppercase;
-}
+.entreprise,
 .prenom {
-  color: #4b7c8a;
+  color: #de8375;
+  /* color: #4b7c8a; */
   text-transform: uppercase;
 }
 
