@@ -4,7 +4,7 @@ session_start();
 
 // Vérification si le formulaire est rempli
 if ($_POST) {
-    if (isset($_POST["id_emploie"]) && !empty($_POST["id_emploie"])
+    if (isset($_POST["id_emploi"]) && !empty($_POST["id_emploi"])
         && isset($_POST["entreprise"]) && !empty($_POST["entreprise"])
         && isset($_POST["statut"]) && !empty($_POST["statut"])
         && isset($_POST["dates"]) && !empty($_POST["dates"])
@@ -17,7 +17,7 @@ if ($_POST) {
         require_once("./include/connect.php");
 
         // On nettoie les données avant de les envoyer
-        $id_emploie = strip_tags($_POST["id_emploie"]);
+        $id_emploi = strip_tags($_POST["id_emploi"]);
         $entreprise = strip_tags($_POST["entreprise"]);
         $statut = strip_tags($_POST["statut"]);
         $dates = strip_tags($_POST["dates"]);
@@ -27,13 +27,13 @@ if ($_POST) {
         $commentaire = strip_tags($_POST["commentaire"]);
 
         // Préparation de la requête pour mettre à jour les informations dans la base de données
-        $sql = "UPDATE `emploie` SET `entreprise`=:entreprise, `statut`=:statut, `dates`=:dates, `relance`=:relance, `website`=:website, `email`=:email, `commentaire`=:commentaire WHERE `id_emploie`=:id_emploie;";
+        $sql = "UPDATE `emploi` SET `entreprise`=:entreprise, `statut`=:statut, `dates`=:dates, `relance`=:relance, `website`=:website, `email`=:email, `commentaire`=:commentaire WHERE `id_emploi`=:id_emploi;";
 
         // Préparation de la requête 
         $query = $db->prepare($sql);
 
         // Attribution des valeurs
-        $query->bindValue(':id_emploie', $id_emploie, PDO::PARAM_INT);
+        $query->bindValue(':id_emploi', $id_emploi, PDO::PARAM_INT);
         $query->bindValue(':entreprise', $entreprise, PDO::PARAM_STR);
         $query->bindValue(':statut', $statut, PDO::PARAM_STR);
         $query->bindValue(':dates', $dates, PDO::PARAM_STR);
@@ -52,7 +52,7 @@ if ($_POST) {
         require_once("./include/disconnect.php");
 
         // Redirection vers la page index.php
-        header("Location: emploie.php");
+        header("Location: emploi.php");
 
         // Assurez-vous qu'aucun autre code ne soit exécuté après la redirection
         exit();
@@ -72,16 +72,16 @@ if (isset($_SESSION["user"]) && isset($_SESSION["user"]["id"])) {
     // Vérification si l'ID de l'utilisateur existe et n'est pas vide dans l'URL
     if (isset($_GET["id"]) && !empty($_GET["id"])) {
         // On nettoie l'ID envoyé
-        $id_emploie = strip_tags($_GET["id"]);
+        $id_emploi = strip_tags($_GET["id"]);
 
         // Demande de la requête avec une clause WHERE pour vérifier que l'utilisateur est le créateur de l'emploi
-        $sql = "SELECT * FROM `emploie` WHERE `id_emploie` = :id_emploie AND `id_user` = :user_id";
+        $sql = "SELECT * FROM `emploi` WHERE `id_emploi` = :id_emploi AND `id_user` = :user_id";
 
         // Préparation de la requête
         $query = $db->prepare($sql);
 
         // Accrocher les paramètres
-        $query->bindValue(':id_emploie', $id_emploie, PDO::PARAM_INT);
+        $query->bindValue(':id_emploi', $id_emploi, PDO::PARAM_INT);
         $query->bindValue(':user_id', $user_id, PDO::PARAM_INT);
 
         // Exécution de la requête
@@ -96,7 +96,7 @@ if (isset($_SESSION["user"]) && isset($_SESSION["user"]["id"])) {
             $_SESSION["erreur"] = "Vous êtes allé trop loin, aucun emploi ne correspond!";
 
             // Redirection vers la page index.php
-            header("Location: emploie.php");
+            header("Location: emploi.php");
 
             // Assurez-vous qu'aucun autre code ne soit exécuté après la redirection
             exit();
@@ -106,7 +106,7 @@ if (isset($_SESSION["user"]) && isset($_SESSION["user"]["id"])) {
         $_SESSION["erreur"] = "La page demandée n'existe pas, veuillez réessayer plus tard";
 
         // Redirection vers la page index.php
-        header("Location: emploie.php");
+        header("Location: emploi.php");
 
         // Assurez-vous qu'aucun autre code ne soit exécuté après la redirection
         exit();
@@ -172,8 +172,8 @@ if (isset($_SESSION["user"]) && isset($_SESSION["user"]["id"])) {
                 value="<?= isset($result["commentaire"]) ? htmlspecialchars($result["commentaire"]) : '' ?>">
         </div>
 
-        <input type="hidden" name="id_emploie"
-            value="<?= isset($result["id_emploie"]) ? htmlspecialchars($result["id_emploie"]) : '' ?>">
+        <input type="hidden" name="id_emploi"
+            value="<?= isset($result["id_emploi"]) ? htmlspecialchars($result["id_emploi"]) : '' ?>">
         <button type="submit">Envoyer</button>
     </form>
     <a href="#" onclick="history.go(-1)"><button>Retour</button></a>

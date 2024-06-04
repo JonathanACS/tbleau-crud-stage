@@ -26,7 +26,7 @@
     <p>Pseudo : <?= $_SESSION["user"]["pseudo"]?></p>
     <p>Email : <?= $_SESSION["user"]["email"]?></p>
     <a href="stage.php"><button>stage</button></a>
-    <a href="emploie.php"><button>emploi</button></a>
+    <a href="emploi.php"><button>emploi</button></a>
     <a href="delete_users.php"><button>Supprimer mon compte</button></a>
 
 </body>

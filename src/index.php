@@ -34,12 +34,12 @@
             <div class="card">
                 <h2>Ajouter une recherche d'emploi</h2>
                 <p>Enregistrez vos candidatures et suivez leur statut</p>
-                <a href="add_emploie.php"><button>Ajouter une recherche d'emploi</button></a>
+                <a href="add_emploi.php"><button>Ajouter une recherche d'emploi</button></a>
             </div>
             <div class="card">
                 <h2>Voir toutes les candidatures</h2>
                 <p>Consultez toutes vos candidatures d'emploi</p>
-                <a href="emploie.php"><button>Voir les recherche d'emploi</button></a>
+                <a href="emploi.php"><button>Voir les recherche d'emploi</button></a>
             </div>
         </div>
     </section>

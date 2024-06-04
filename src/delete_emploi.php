@@ -13,7 +13,7 @@
         $id = strip_tags($_GET["id"]);
 
         //Demande de la requette
-        $sql = "SELECT * FROM `emploie` WHERE `id_emploie` = :id;";
+        $sql = "SELECT * FROM `emploi` WHERE `id_emploi` = :id;";
 
         //Préparation de la requette
         $query = $db->prepare($sql);
@@ -34,13 +34,13 @@
             $_SESSION["erreur"] = "l'id en question existe pas encore, reviens plus tard";
 
             //Rediréction vers la page index.php
-            header("Location: emploie.php");
+            header("Location: emploi.php");
 
             // Assurez-vous qu'aucun autre code ne soit exécuté après la redirection
             exit();
         }
                 //Demande de la requette
-                $sql = "DELETE FROM `emploie` WHERE `id_emploie` = :id;";
+                $sql = "DELETE FROM `emploi` WHERE `id_emploi` = :id;";
 
 
                 //Préparation de la requette
@@ -53,10 +53,10 @@
                 $query->execute();
 
                 //Message d'erreur à afficher
-                $_SESSION["supprimer"] = "information du emploie supprimer";
+                $_SESSION["supprimer"] = "information du emploi supprimer";
 
                 //Rediréction vers la page index.php
-            header("Location: emploie.php");
+            header("Location: emploi.php");
 
     }else{
 
@@ -64,7 +64,7 @@
         $_SESSION["erreur"] = "La page en question n'existe pas encore, reviens plus tard";
 
         //Rediréction vers la page index.php
-        header("Location: emploie.php");
+        header("Location: emploi.php");
 
 
         // Assurez-vous qu'aucun autre code ne soit exécuté après la redirection

@@ -1,7 +1,7 @@
 <?php
     session_start();
 
-    include_once("./include/verification_id_emploie.php");
+    include_once("./include/verification_id_emploi.php");
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -23,7 +23,7 @@
         <p>WEBSITE : <?= $result["website"] ?></p>
         <p>E-MAIL : <?= $result["email"] ?></p>
         <p>COMMENTAIRES : <?= $result["commentaire"] ?></p>
-        <a href="update_emploie.php?id=<?= $result["id_emploie"]?>"><button>Modifier</button></a>
+        <a href="update_emploi.php?id=<?= $result["id_emploi"]?>"><button>Modifier</button></a>
         <a href="#" onclick="history.go(-1)"><button>Retour</button></a>
     </div>
 </body>

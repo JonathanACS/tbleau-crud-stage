@@ -28,7 +28,7 @@ if ($_POST) {
             $commentaire = strip_tags($_POST["commentaire"]);
 
             // Préparation de la requête pour envoyer les informations dans la base de données
-            $sql = "INSERT INTO `emploie`(`entreprise`, `statut`, `dates`,`relance`, `website`, `email`, `commentaire`, `id_user`) 
+            $sql = "INSERT INTO `emploi`(`entreprise`, `statut`, `dates`,`relance`, `website`, `email`, `commentaire`, `id_user`) 
                     VALUES (:entreprise, :statut, :dates, :relance, :website, :email, :commentaire, :user_id)";        
             // Préparation de la requête 
             $query = $db->prepare($sql);
@@ -55,7 +55,7 @@ if ($_POST) {
             require_once("./include/disconnect.php");
 
             // Redirection vers la page stage.php
-            header("Location: emploie.php");
+            header("Location: emploi.php");
 
             // Assurez-vous qu'aucun autre code ne soit exécuté après la redirection
             exit();
@@ -74,7 +74,7 @@ if ($_POST) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajouter une recherche d'emploie</title>
+    <title>Ajouter une recherche d'emploi</title>
     <link rel="stylesheet" href="./css/style.css" />
 </head>
 
@@ -97,7 +97,7 @@ if ($_POST) {
             $_SESSION["message"] = ""; 
         }
     ?>
-    <h1 class="title-center">Ajouter une recherche d'emploie</h1>
+    <h1 class="title-center">Ajouter une recherche d'emploi</h1>
     <form method="post">
         <div class="form">
             <label for="entreprise">Entreprise</label>

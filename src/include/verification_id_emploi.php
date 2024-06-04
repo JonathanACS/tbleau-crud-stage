@@ -12,16 +12,16 @@
         if(isset($_GET["id"]) && !empty($_GET["id"])){
 
             //On nettoie l'ID envoyé
-            $id_emploie = strip_tags($_GET["id"]);
+            $id_emploi = strip_tags($_GET["id"]);
 
             //Demande de la requête avec une clause WHERE pour vérifier que l'utilisateur est le créateur du stage
-            $sql = "SELECT * FROM `emploie` WHERE `id_emploie` = :id_emploie AND `id_user` = :user_id";
+            $sql = "SELECT * FROM `emploi` WHERE `id_emploi` = :id_emploi AND `id_user` = :user_id";
 
             //Préparation de la requête
             $query = $db->prepare($sql);
 
             //Accrocher les paramètres
-            $query->bindValue(':id_emploie', $id_emploie, PDO::PARAM_INT);
+            $query->bindValue(':id_emploi', $id_emploi, PDO::PARAM_INT);
             $query->bindValue(':user_id', $user_id, PDO::PARAM_INT);
 
             //Exécution de la requête
@@ -37,7 +37,7 @@
                 $_SESSION["erreur"] = "Vous êtes allé trop loin, aucun stage ne correspond!";
 
                 //Redirection vers la page index.php
-                header("Location: emploie.php");
+                header("Location: emploi.php");
 
                 // Assurez-vous qu'aucun autre code ne soit exécuté après la redirection
                 exit();
@@ -49,7 +49,7 @@
             $_SESSION["erreur"] = "La page demandée n'existe pas, veuillez réessayer plus tard";
 
             //Redirection vers la page index.php
-            header("Location: emploie.php");
+            header("Location: emploi.php");
 
 
             // Assurez-vous qu'aucun autre code ne soit exécuté après la redirection

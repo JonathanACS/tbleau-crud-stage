@@ -11,7 +11,7 @@
         require_once("./include/connect.php");
 
         //on selectionne le tableau dans la base de données pour l'utilisateur connecté
-        $sql = "SELECT * FROM `emploie` WHERE `id_user` = :user_id";
+        $sql = "SELECT * FROM `emploi` WHERE `id_user` = :user_id";
 
         //On prépare la requette
         $query = $db->prepare($sql);
@@ -89,20 +89,20 @@
         <tbody>
             <?php 
             // pour chaque information récupéré dans $result, on affiche une nouvelle ligne dans la table HTML
-                foreach($result as $emploie){
+                foreach($result as $emploi){
             //chaque information récupéré sera identifier en tant que $stage dans le foreach
             ?>
             <tr>
-                <td><?= $emploie["entreprise"] ?></td>
-                <td><?= $emploie["statut"] ?></td>
-                <td><?= $emploie["dates"] ?></td>
-                <td><?= $emploie["website"] ?></td>
-                <td><?= $emploie["email"] ?></td>
-                <td><?= $emploie["commentaire"] ?></td>
+                <td><?= $emploi["entreprise"] ?></td>
+                <td><?= $emploi["statut"] ?></td>
+                <td><?= $emploi["dates"] ?></td>
+                <td><?= $emploi["website"] ?></td>
+                <td><?= $emploi["email"] ?></td>
+                <td><?= $emploi["commentaire"] ?></td>
                 <td>
-                    <a href="details_emploie.php?id=<?=$emploie["id_emploie"]?>">Voir</a>
-                    <a href="update_emploie.php?id=<?=$emploie["id_emploie"]?>">Modifier</a>
-                    <a href="delete_emploie.php?id=<?=$emploie["id_emploie"]?>">Supprimer</a>
+                    <a href="details_emploi.php?id=<?=$emploi["id_emploi"]?>">Voir</a>
+                    <a href="update_emploi.php?id=<?=$emploi["id_emploi"]?>">Modifier</a>
+                    <a href="delete_emploi.php?id=<?=$emploi["id_emploi"]?>">Supprimer</a>
                 </td>
             </tr>
             <?php
@@ -110,7 +110,7 @@
             ?>
         </tbody>
     </table>
-    <a href="add_emploie.php"><button>Ajouter une recherche d'emploi</button></a>
+    <a href="add_emploi.php"><button>Ajouter une recherche d'emploi</button></a>
     <a href="#" onclick="history.go(-1)"><button>Retour</button></a>
 
 </body>
