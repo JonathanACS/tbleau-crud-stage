@@ -2,6 +2,13 @@
 // On démarre la session, la session sert à envoyer des messages d'une page à l'autre
 session_start();
 
+// Vérifiez si l'utilisateur est connecté et son ID est dans la session
+if (!isset($_SESSION["user"]) || !isset($_SESSION["user"]["id"])) {
+    // Redirigez vers la page de création de compte si l'utilisateur n'est pas connecté
+    header("Location: connexion_users.php");
+    exit();
+}
+
 // Vérification si le formulaire est rempli
 if ($_POST) {
     if (isset($_POST["id_emploi"]) && !empty($_POST["id_emploi"])

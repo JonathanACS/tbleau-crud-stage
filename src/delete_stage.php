@@ -2,7 +2,6 @@
     //on démare la session, la session sert à envoyer des message d'une page à l'autre
     session_start();
 
-
     //Vérification si l'id existe et si il n'est pas vide dans l'url
     if(isset($_GET["id"]) && !empty($_GET["id"])){
 

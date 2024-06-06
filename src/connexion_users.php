@@ -79,21 +79,25 @@
 
 <body>
     <?php include_once("./include/nav.php");?>
-    <h1 class="title-center">Connectez-vous</h1>
-    <form method="post">
-        <div class="form">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email">
-        </div>
-        <div class="form">
-            <label for="pass">Mot de passe</label>
-            <input type="password" id="pass" name="pass">
-        </div>
-        <button type="submit">Se connecter</button>
-    </form>
-    <a href="#" onclick="history.go(-1)"><button>Retour</button></a>
+    <section>
 
-
+        <h1 class="title-center">Connectez-vous</h1>
+        <form method="post">
+            <div class="form">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email">
+            </div>
+            <div class="form">
+                <label for="pass">Mot de passe</label>
+                <input type="password" id="pass" name="pass">
+            </div>
+            <div class="inscription">
+                <a href="inscription_users.php">créer votre compte</a>
+                <button type="submit">Se connecter</button>
+            </div>
+        </form>
+        <a href="#" onclick="history.go(-1)"><button>Retour</button></a>
+    </section>
 </body>
 
 </html>

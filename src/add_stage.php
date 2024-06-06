@@ -1,14 +1,23 @@
 <?php
 session_start(); // Assurez-vous que la session est démarrée
 
+// Vérifiez si l'utilisateur est connecté et son ID est dans la session
+if (!isset($_SESSION["user"])) {
+    
+    // Redirigez vers la page de création de compte si l'utilisateur n'est pas connecté
+    header("Location: connexion_users.php");
+    exit();
+}
+
 // Vérification si le formulaire est rempli
 if ($_POST) {
     if (isset($_POST["entreprise"]) && !empty($_POST["entreprise"])
     && isset($_POST["statut"]) && !empty($_POST["statut"])
     && isset($_POST["dates"]) && !empty($_POST["dates"])
+    && isset($_POST["relance"]) && !empty($_POST["relance"])
     && isset($_POST["website"]) && !empty($_POST["website"])
     && isset($_POST["email"]) && !empty($_POST["email"])
-    && isset($_POST["commentaires"]) && !empty($_POST["commentaires"])) {
+    && isset($_POST["commentaire"]) && !empty($_POST["commentaire"])) {
 
         // Vérifiez si l'utilisateur est connecté et son ID est dans la session
         if (isset($_SESSION["user"]) && isset($_SESSION["user"]["id"])) {
@@ -21,13 +30,14 @@ if ($_POST) {
             $entreprise = strip_tags($_POST["entreprise"]);
             $statut = strip_tags($_POST["statut"]);
             $dates = strip_tags($_POST["dates"]);
+            $relance = strip_tags($_POST["relance"]);
             $website = strip_tags($_POST["website"]);
             $email = strip_tags($_POST["email"]);
-            $commentaires = strip_tags($_POST["commentaires"]);
+            $commentaire = strip_tags($_POST["commentaire"]);
 
             // Préparation de la requête pour envoyer les informations dans la base de données
-            $sql = "INSERT INTO `stage`(`entreprise`, `statut`, `dates`, `website`, `email`, `commentaires`, `id_users`) 
-                    VALUES (:entreprise, :statut, :dates, :website, :email, :commentaires, :user_id)";        
+            $sql = "INSERT INTO `stage`(`entreprise`, `statut`, `dates`, `relance`, `website`, `email`, `commentaire`, `id_users`) 
+                    VALUES (:entreprise, :statut, :dates, :relance, :website, :email, :commentaire, :user_id)";        
             // Préparation de la requête 
             $query = $db->prepare($sql);
             
@@ -35,9 +45,10 @@ if ($_POST) {
             $query->bindValue(':entreprise', $entreprise, PDO::PARAM_STR);
             $query->bindValue(':statut', $statut, PDO::PARAM_STR);
             $query->bindValue(':dates', $dates, PDO::PARAM_STR);
+            $query->bindValue(':relance', $relance, PDO::PARAM_STR);
             $query->bindValue(':website', $website, PDO::PARAM_STR);
             $query->bindValue(':email', $email, PDO::PARAM_STR);
-            $query->bindValue(':commentaires', $commentaires, PDO::PARAM_STR);
+            $query->bindValue(':commentaire', $commentaire, PDO::PARAM_STR);
             $query->bindValue(':user_id', $user_id, PDO::PARAM_INT);
 
             // Exécution de la requête
@@ -113,6 +124,10 @@ if ($_POST) {
             <input type="date" id="dates" name="dates">
         </div>
         <div class="form">
+            <label for="relance">Relance</label>
+            <input type="date" id="relance" name="relance">
+        </div>
+        <div class="form">
             <label for="website">Website</label>
             <input type="text" id="website" name="website">
         </div>
@@ -121,8 +136,8 @@ if ($_POST) {
             <input type="email" id="email" name="email">
         </div>
         <div class="form">
-            <label for="commentaires">Commentaire</label>
-            <input type="text" id="commentaires" name="commentaires">
+            <label for="commentaire">Commentaire</label>
+            <input type="text" id="commentaire" name="commentaire">
         </div>
         <button type="submit">Envoyer</button>
     </form>

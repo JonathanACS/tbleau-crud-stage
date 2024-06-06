@@ -19,9 +19,10 @@
     <div class="details">
         <p>STATUT : <?= $result["statut"] ?></p>
         <p>DATE : <?= $result["dates"] ?></p>
+        <p>RELANCE : <?= $result["relance"] ?></p>
         <p>WEBSITE : <?= $result["website"] ?></p>
         <p>E-MAIL : <?= $result["email"] ?></p>
-        <p>COMMENTAIRES : <?= $result["commentaires"] ?></p>
+        <p>COMMENTAIRES : <?= $result["commentaire"] ?></p>
         <a href="update_stage.php?id=<?= $result["id_stage"]?>"><button>Modifier</button></a>
         <a href="#" onclick="history.go(-1)"><button>Retour</button></a>
     </div>

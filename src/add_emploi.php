@@ -1,6 +1,14 @@
 <?php
 session_start(); // Assurez-vous que la session est démarrée
 
+// Vérifiez si l'utilisateur est connecté et son ID est dans la session
+if (!isset($_SESSION["user"])) {
+    
+    // Redirigez vers la page de création de compte si l'utilisateur n'est pas connecté
+    header("Location: connexion_users.php");
+    exit();
+}
+
 // Vérification si le formulaire est rempli
 if ($_POST) {
     if (isset($_POST["entreprise"]) && !empty($_POST["entreprise"])
@@ -106,9 +114,9 @@ if ($_POST) {
         <div class="form">
             <label for="statut">Statut</label>
             <select name="statut" id="statut">
-                <option value="accepter">Accepter</option>
-                <option value="en attente">En attente</option>
-                <option value="refuser">Refuser</option>
+                <option value="Accepter">Accepter</option>
+                <option value="En attente">En attente</option>
+                <option value="Refuser">Refuser</option>
             </select>
         </div>
         <div class="form">

@@ -1,18 +1,18 @@
 <?php
-    // //on démare la session, la session sert à envoyer des message d'une page à l'autre
-    session_start();
+// Démarrage de la session
+session_start();
 
-    //vérification si l'utilisateur est déjà connecter ou pas
-    if(isset($_SESSION["user"])){
-        header("Location: profil.php");
-        exit;
-    }
+// Vérification si l'utilisateur est déjà connecté
+if (isset($_SESSION["user"])) {
+    header("Location: profil.php");
+    exit;
+}
 
-// Vérification si le formulaire est rempli
-if(!empty($_POST)){
+// Vérification si le formulaire est soumis
+if (!empty($_POST)) {
     if (isset($_POST["username"]) && !empty($_POST["username"])
         && isset($_POST["email"]) && !empty($_POST["email"])
-        && isset($_POST["pass"]) && !empty($_POST["pass"])){
+        && isset($_POST["pass"]) && !empty($_POST["pass"])) {
 
         // Connexion à la base de données (information de la connexion dans "connect.php")
         require_once("./include/connect.php");
@@ -22,53 +22,71 @@ if(!empty($_POST)){
         $email = strip_tags($_POST["email"]);
         $pass = strip_tags($_POST["pass"]);
 
+        $_SESSION["error"] = [];
+
         // Vérification si l'adresse email est correcte
-        if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-            die("L'adresse email est incorrecte");
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $_SESSION["error"][] = "L'adresse email est incorrecte";
         }
 
-        // Hachage du mot de passe (pour ne pas le déchiffrer)
-        $pass = password_hash($pass, PASSWORD_ARGON2ID);
-
-        // Définir le rôle par défaut
-        $roles = 'ROLE_USER';
-
-        // Préparation de la requête pour envoyer les informations dans la base de données
-        $sql = "INSERT INTO `users`(`username`, `email`, `pass`, `roles`) VALUES (:username, :email, :pass, :roles)";
-
-        // Préparation de la requête
+        // Vérification si l'email existe déjà dans la base de données
+        $sql = "SELECT * FROM `users` WHERE `email` = :email";
         $query = $db->prepare($sql);
-
-        // Attribution des valeurs
-        $query->bindValue(':username', $username, PDO::PARAM_STR);
         $query->bindValue(':email', $email, PDO::PARAM_STR);
-        $query->bindValue(':pass', $pass, PDO::PARAM_STR);
-        $query->bindValue(':roles', $roles, PDO::PARAM_STR);
-
-        // Exécution de la requête
         $query->execute();
+        $user = $query->fetch(PDO::FETCH_ASSOC);
 
-        // Récupération de l'id de l'utilisateur
-        $id = $db->lastInsertId();
+        if ($user) {
+            $_SESSION["error"][] = "L'adresse email est déjà utilisée";
+        }
 
-        // Message à afficher 
-        $_SESSION["message"] = "Compte créé!";
+        if (empty($_SESSION["error"])) {
 
-        // On va stocker dans $_SESSION
-        $_SESSION["user"] = [
-            "id" => $id,
-            "pseudo" => $username,
-            "email" => $_POST["email"],
-            "roles" => ["ROLE_USER"]
-        ];
+            // Hachage du mot de passe (pour ne pas le déchiffrer)
+            $pass = password_hash($pass, PASSWORD_ARGON2ID);
 
-        // Redirection vers la page pour la page des profils
-        header("Location: profil.php");
+            // Définir le rôle par défaut
+            $roles = 'ROLE_USER';
 
-        // Assurez-vous qu'aucun autre code ne soit exécuté après la redirection
-        exit();
+            // Préparation de la requête pour envoyer les informations dans la base de données
+            $sql = "INSERT INTO `users`(`username`, `email`, `pass`, `roles`) VALUES (:username, :email, :pass, :roles)";
+
+            // Préparation de la requête
+            $query = $db->prepare($sql);
+
+            // Attribution des valeurs
+            $query->bindValue(':username', $username, PDO::PARAM_STR);
+            $query->bindValue(':email', $email, PDO::PARAM_STR);
+            $query->bindValue(':pass', $pass, PDO::PARAM_STR);
+            $query->bindValue(':roles', $roles, PDO::PARAM_STR);
+
+            // Exécution de la requête
+            $query->execute();
+
+            // Récupération de l'id de l'utilisateur
+            $id = $db->lastInsertId();
+
+            // On va stocker dans $_SESSION
+            $_SESSION["user"] = [
+                "id" => $id,
+                "pseudo" => $username,
+                "email" => $_POST["email"],
+                "roles" => ["ROLE_USER"]
+            ];
+
+            unset($pass);
+
+            // Message à afficher 
+            $_SESSION["succes"] = "compte créer avec succès!";
+
+            // Redirection vers la page pour la page des profils
+            header("Location: profil.php");
+
+            // Assurez-vous qu'aucun autre code ne soit exécuté après la redirection
+            exit();
+        }
     } else {
-        $_SESSION["erreur"] = "Le formulaire est incomplet";
+        $_SESSION["error"] = ["Le formulaire est incomplet"];
     }
 }
 ?>
@@ -86,11 +104,11 @@ if(!empty($_POST)){
 <body>
     <?php include_once("./include/nav.php");?>
     <?php
-        if(!empty($_SESSION["erreur"])) {
-            // Afficher le message d'erreur
-            echo "<h3>" . $_SESSION["erreur"] . "</h3>";
+        if (!empty($_SESSION["error"])) {
+            echo "<h3>" . implode("<br>", $_SESSION["error"]) . "</h3>";
+
             // Réinitialiser le message d'erreur après l'avoir affiché
-            $_SESSION["erreur"] = "";
+            $_SESSION["error"] = []; 
         }
     ?>
     <h1 class="title-center">Remplissez le formulaire pour créer votre compte</h1>
@@ -107,7 +125,7 @@ if(!empty($_POST)){
             <label for="pass">Mot de passe</label>
             <input type="password" id="pass" name="pass">
         </div>
-        <button type="submit">Envoyer</button>
+        <button type="submit">Créer votre compte!</button>
     </form>
     <a href="#" onclick="history.go(-1)"><button>Retour</button></a>
 

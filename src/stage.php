@@ -1,6 +1,13 @@
 <?php
     //on démare la session, la session sert à envoyer des message d'une page à l'autre
     session_start();
+    
+    // Vérifiez si l'utilisateur est connecté et son ID est dans la session
+if (!isset($_SESSION["user"]) || !isset($_SESSION["user"]["id"])) {
+    // Redirigez vers la page de création de compte si l'utilisateur n'est pas connecté
+    header("Location: connexion_users.php");
+    exit();
+}
 
     // Vérifier si l'utilisateur est connecté
     if(isset($_SESSION["user"]) && isset($_SESSION["user"]["id"])) {
@@ -11,7 +18,7 @@
         require_once("./include/connect.php");
 
         //on selectionne le tableau dans la base de données pour l'utilisateur connecté
-        $sql = "SELECT * FROM `stage` WHERE `id_users` = :user_id";
+        $sql = "SELECT * FROM `stage` WHERE `id_users` = :user_id ORDER BY `stage`.`id_stage` DESC";
 
         //On prépare la requette
         $query = $db->prepare($sql);
@@ -98,7 +105,7 @@
                 <td><?= $stage["dates"] ?></td>
                 <td><?= $stage["website"] ?></td>
                 <td><?= $stage["email"] ?></td>
-                <td><?= $stage["commentaires"] ?></td>
+                <td><?= $stage["commentaire"] ?></td>
                 <td>
                     <a href="details_stage.php?id=<?=$stage["id_stage"]?>">Voir</a>
                     <a href="update_stage.php?id=<?=$stage["id_stage"]?>">Modifier</a>

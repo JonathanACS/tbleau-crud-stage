@@ -9,9 +9,10 @@
         && isset($_POST["entreprise"]) && !empty($_POST["entreprise"])
         && isset($_POST["statut"]) && !empty($_POST["statut"])
         && isset($_POST["dates"]) && !empty($_POST["dates"])
+        && isset($_POST["relance"]) && !empty($_POST["relance"])
         && isset($_POST["website"]) && !empty($_POST["website"])
         && isset($_POST["email"]) && !empty($_POST["email"])
-        && isset($_POST["commentaires"]) && !empty($_POST["commentaires"])){
+        && isset($_POST["commentaire"]) && !empty($_POST["commentaire"])){
         
         //connexion à la base de données (information de la connexion dans "connect.php")
         require_once("./include/connect.php");
@@ -21,12 +22,13 @@
         $entreprise = strip_tags($_POST["entreprise"]);
         $statut = strip_tags($_POST["statut"]);
         $dates = strip_tags($_POST["dates"]);
+        $relance = strip_tags($_POST["relance"]);
         $website = strip_tags($_POST["website"]);
         $email = strip_tags($_POST["email"]);
-        $commentaires = strip_tags($_POST["commentaires"]);
+        $commentaire = strip_tags($_POST["commentaire"]);
 
         //Préparation de la requette pour mettre à jour les informations dans la base de données
-        $sql = "UPDATE `stage` SET `entreprise`=:entreprise, `statut`=:statut, `dates`=:dates, `website`=:website, `email`=:email, `commentaires`=:commentaires WHERE `id_stage`=:id_stage;";
+        $sql = "UPDATE `stage` SET `entreprise`=:entreprise, `statut`=:statut, `dates`=:dates, `relance`=:relance, `website`=:website, `email`=:email, `commentaire`=:commentaire WHERE `id_stage`=:id_stage;";
 
         
         //préparation de la requette 
@@ -37,9 +39,10 @@
         $query->bindValue(':entreprise', $entreprise, PDO::PARAM_STR);
         $query->bindValue(':statut', $statut, PDO::PARAM_STR);
         $query->bindValue(':dates', $dates, PDO::PARAM_STR);
+        $query->bindValue(':relance', $relance, PDO::PARAM_STR);
         $query->bindValue(':website', $website, PDO::PARAM_STR);
         $query->bindValue(':email', $email, PDO::PARAM_STR);
-        $query->bindValue(':commentaires', $commentaires, PDO::PARAM_STR);
+        $query->bindValue(':commentaire', $commentaire, PDO::PARAM_STR);
 
         //execution de la requette
         $query->execute();
@@ -161,6 +164,10 @@
             <input type="date" id="dates" name="dates" value="<?=$result["dates"] ?>">
         </div>
         <div class="form">
+            <label for="relance">Relance</label>
+            <input type="date" id="relance" name="relance" value="<?=$result["relance"] ?>">
+        </div>
+        <div class="form">
             <label for="website">Website</label>
             <input type="text" id="website" name="website" value="<?=$result["website"] ?>">
         </div>
@@ -169,8 +176,8 @@
             <input type="email" id="email" name="email" value="<?=$result["email"] ?>">
         </div>
         <div class="form">
-            <label for="commentaires">Commentaire</label>
-            <input type="text" id="commentaires" name="commentaires" value="<?=$result["commentaires"] ?>">
+            <label for="commentaire">Commentaire</label>
+            <input type="text" id="commentaire" name="commentaire" value="<?=$result["commentaire"] ?>">
         </div>
 
         <input type="hidden" name="id_stage" value="<?=$result["id_stage"]?>">

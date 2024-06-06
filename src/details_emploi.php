@@ -19,7 +19,7 @@
     <div class="details">
         <p>STATUT : <?= $result["statut"] ?></p>
         <p>DATE : <?= $result["dates"] ?></p>
-        <p>DATE : <?= $result["relance"] ?></p>
+        <p>RELANCE : <?= $result["relance"] ?></p>
         <p>WEBSITE : <?= $result["website"] ?></p>
         <p>E-MAIL : <?= $result["email"] ?></p>
         <p>COMMENTAIRES : <?= $result["commentaire"] ?></p>

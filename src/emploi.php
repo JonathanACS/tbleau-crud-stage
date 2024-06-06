@@ -2,6 +2,14 @@
     //on démare la session, la session sert à envoyer des message d'une page à l'autre
     session_start();
 
+    // Vérifiez si l'utilisateur est connecté et son ID est dans la session
+if (!isset($_SESSION["user"]) || !isset($_SESSION["user"]["id"])) {
+
+    // Redirigez vers la page de création de compte si l'utilisateur n'est pas connecté
+    header("Location: connexion_users.php");
+    exit();
+}
+
     // Vérifier si l'utilisateur est connecté
     if(isset($_SESSION["user"]) && isset($_SESSION["user"]["id"])) {
         // Récupérer l'ID de l'utilisateur connecté
@@ -11,7 +19,7 @@
         require_once("./include/connect.php");
 
         //on selectionne le tableau dans la base de données pour l'utilisateur connecté
-        $sql = "SELECT * FROM `emploi` WHERE `id_user` = :user_id";
+        $sql = "SELECT * FROM `emploi` WHERE `id_user` = :user_id ORDER BY `emploi`.`id_emploi` DESC";
 
         //On prépare la requette
         $query = $db->prepare($sql);
@@ -80,7 +88,7 @@
         <thead>
             <td>Entreprise</td>
             <td>Statut</td>
-            <td>Date</td>
+            <td>Relance</td>
             <td>Site</td>
             <td>E-Mail</td>
             <td>Commentaire</td>
@@ -95,7 +103,7 @@
             <tr>
                 <td><?= $emploi["entreprise"] ?></td>
                 <td><?= $emploi["statut"] ?></td>
-                <td><?= $emploi["dates"] ?></td>
+                <td><?= $emploi["relance"] ?></td>
                 <td><?= $emploi["website"] ?></td>
                 <td><?= $emploi["email"] ?></td>
                 <td><?= $emploi["commentaire"] ?></td>

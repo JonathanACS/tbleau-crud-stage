@@ -22,7 +22,6 @@
 <body>
     <?php include_once("./include/nav.php");?>
     <h1>Profil de <span class="prenom"><?= $_SESSION["user"]["pseudo"]?></span></h1>
-
     <p>Pseudo : <?= $_SESSION["user"]["pseudo"]?></p>
     <p>Email : <?= $_SESSION["user"]["email"]?></p>
     <a href="stage.php"><button>stage</button></a>
